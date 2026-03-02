@@ -1,7 +1,7 @@
 import random
 lives = 6
 print("Let's play hangman!")
-words = ['hangman', 'mango', 'restaurant', 'goat', ‘happy’, ‘horse’, ‘moose’]
+words = ['hangman', 'mango', 'restaurant', 'goat', 'happy', 'horse', 'moose']
 word = random.choice(words)
 guessedChar = [] #empty array
 won = False
