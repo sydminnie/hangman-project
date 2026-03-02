@@ -32,7 +32,6 @@ while True:
                 display += char
             else:
                 display += "_"
-	print(“lives left: “, lives)
 
         print(display)
         
