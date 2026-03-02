@@ -2,7 +2,7 @@ import random
 lives = 6
 print("Let's play hangman!")
 words = ['hangman', 'mango', 'restaurant', 'goat', 'happy', 'horse', 'moose']
-word = random.choice(words)
+word = random.choice(words) #word used in the game
 guessedChar = [] #empty array
 won = False
 
@@ -16,22 +16,23 @@ while True:
             print("Not a valid guess. Please enter a single letter.")
             continue
 
-        if guess in guessedChar:
+        if guess in guessedChar: #already guessed
             print("You already guessed that letter.")
             continue
 
-        guessedChar.append(guess)
+        guessedChar.append(guess) 
 
         if guess not in word:
             lives -= 1
             print("wrong, lives left:", lives)
 
         display = "" # reset what is displayed
-        for char in word:
+        for char in word: #iterates through every char in word to check if guessed
             if char in guessedChar:
                 display += char
             else:
                 display += "_"
+        print("lives left: ", lives)
 
         print(display)
         
@@ -47,6 +48,9 @@ while True:
         word = random.choice(words) #reset word, lives, game
         won = False
         guessedChar = []
-        print(“New game!”)
+        print("New game!")
         continue
     break #only stops game when when input not “yes”
+
+
+
