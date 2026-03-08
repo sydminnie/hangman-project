@@ -1,7 +1,7 @@
 import random
 lives = 6
 print("Let's play hangman!")
-words = ['hangman', 'mango', 'restaurant', 'goat', 'happy', 'horse', 'moose']
+words = ['hangman', 'restaurant', 'moose', 'computer', 'computationalresourcestraining', 'python', 'happy']
 word = random.choice(words) #word used in the game
 guessedChar = [] #intialize array so letters are not used multiple times
 won = False
@@ -9,10 +9,27 @@ won = False
 while True:
     while won == False and lives > 0:
 
-        print("Guess a letter:")
-        guess = input()
+        print("Type in a letter or type 'guess answer' to guess the answer! Type 'help' to see what letters you have previously guessed!")
+        guess = input().lower()
 
-        if len(guess) != 1 or not guess.isalpha(): #if guess invalid
+        needHelp = False #user inputs help (couldn't find an easier way to do this)
+        completeFail = False #if guessAnswer and fails
+
+        if guess == "guess answer":
+            if input().lower() == word:
+                won = True
+            else:
+                completeFail = True
+                print("You got it wrong!")
+                print("word was: ", word)
+                lives = 0
+
+        elif guess == "help":
+            print("You have used the letters: ")
+            print(guessedChar)
+            needHelp = True #makes sure it lives aren't subtracted and doesn't print anything
+
+        elif len(guess) != 1 or not guess.isalpha() and not needHelp: #if guess invalid
             print("Not a valid guess. Please enter a single letter.")
             continue
 
@@ -22,19 +39,20 @@ while True:
 
         guessedChar.append(guess) 
 
-        if guess not in word:
+        if guess not in word and not won and not needHelp and not completeFail:
             lives -= 1
-            print("wrong, lives left:", lives)
+            print("Letter not found! lives left:", lives)
 
         display = "" # reset what is displayed
-        for char in word: #iterates through every char in word to check if guessed
-            if char in guessedChar:
-                display += char
-            else:
-                display += "_"
-        print("lives left: ", lives)
+        
+        if not needHelp and not completeFail:
+            for char in word: #iterates through every char in word to check if guessed
+                if char in guessedChar:
+                    display += char
+                else:
+                    display += "_"
 
-        print(display)
+            print(display)
         
         if display == word: #user guesses = word
             won = True
@@ -44,16 +62,21 @@ while True:
     else:
         print("Out of lives, game over!")
 
-    print("Want to play again?")
+    print("Want to play again? Enter 'yes' to continue, 'no' to quit")
 
-    if(input() == "yes"):
+    response = input().lower()
+    if(response == "yes"):
         word = random.choice(words) #reset word, lives, game
         won = False
         guessedChar = []
+        lives = 6
         print("New game!")
         continue
-
-    break #only stops game when when input not “yes”
+    elif(response == "no"):
+        break
+    else:
+        print("Please enter 'yes' to continue or 'no' to quit")
+    continue
 
 
 
