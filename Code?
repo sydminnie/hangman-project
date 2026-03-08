@@ -3,7 +3,7 @@ lives = 6
 print("Let's play hangman!")
 words = ['hangman', 'mango', 'restaurant', 'goat', 'happy', 'horse', 'moose']
 word = random.choice(words) #word used in the game
-guessedChar = [] #empty array
+guessedChar = [] #intialize array so letters are not used multiple times
 won = False
 
 while True:
